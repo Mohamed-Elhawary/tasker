@@ -7,7 +7,7 @@ body {
 }
 
 input[type=text],
-input[type=text]:focus{
+input[type=text]:focus {
     color: #fff;
     border: none;
     background: rgba(0,0,0,0.2);
@@ -33,15 +33,15 @@ footer {
     font-weight: bold;
     color: #ccc;
     padding: 5px
-}
+  }
   
 footer p {
-      margin-top: 8px;
+    margin-top: 8px;
 }
   
 footer p span {
-      background-color: #ddd;
-      padding: 2px;
-      color: #333;
-      border-radius: 5px;
+    background-color: #ddd;
+    padding: 2px;
+    color: #333;
+    border-radius: 5px;
 }
