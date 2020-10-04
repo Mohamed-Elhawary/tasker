@@ -1,4 +1,4 @@
-# tasker
+# Tasker
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2f1b2e55-540e-4f88-96d4-987c157d3dc8/deploy-status)](https://app.netlify.com/sites/tasker14/deploys)  
 
 Tasker is a Smart Tasks List App. let you organize and add your Daily Tasks including other Features.  
