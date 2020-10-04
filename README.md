@@ -88,7 +88,7 @@ const generateTemplate = () => {
 
 ## Built With
 
-* HML5
+* HTML5
 * CSS3
 * ES6 Modern JS Syntax 
 
