@@ -10,8 +10,8 @@ addForm.add.focus();
 const generateTemplate = () => {
   let html = "";
   for (let i in tasks, tasksDates) {
-    task  = tasks[i];
-    date  = tasksDates[i];
+    let task  = tasks[i];
+    let date  = tasksDates[i];
     html +=
     `<li class="list-group-item align-items-center" data-index="${i}">
       <div class="d-flex justify-content-between">
@@ -36,8 +36,8 @@ addForm.addEventListener('submit', e => {
   if(taskValue.length){
     tasks.push(taskValue);
     tasksDates.push(date);
-    //console.log(tasks);
-    //console.log(tasksDates)
+    console.log(tasks);
+    console.log(tasksDates);
     saveDataInStorage();
     generateTemplate();
     addForm.reset();
@@ -53,6 +53,7 @@ list.addEventListener('click', e => {
     tasksDates.splice(e.target.parentElement.parentElement.getAttribute("data-index"), 1);
     //console.log(tasks);
     //console.log(tasksDates);
+    generateTemplate();
     saveDataInStorage();
     addForm.add.focus();
   }
