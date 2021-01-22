@@ -1,7 +1,11 @@
-<!--v.1.1-->
+<!--v.2.0-->
 <!-- ////////What's New ///////////
-  1- Used Local storage to save the user tasks in case of reloading the page or closing the browser.
-  2- Added the date and time feature for each task, that show when this task was created.
+  <<<<Main Feature>>>>>>
+  1- Added the edit feature that allows to the user to can edit his tasks anytime beside showing the last editing date for each task.
+  2- Added the sort feature that allow to the user to can sort his tasks list with his prefer sort as he want by dragging the tasks.
+   <<<<<<<Some Enhancements>>>>>>>>
+     * Smooth scrolling for the app with with awesome shape scroll.
+     * Add favicon for the App.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +13,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--favicon-->
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -23,27 +29,7 @@
         </form>
       </header>
 
-      <ul class="list-group todos mx-auto text-light">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span>Swim in the Pool
-            <span class="date text-muted d-block">26/8/2020</span>
-          </span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span>Play Football
-            <span class="date text-muted d-block">26/8/2020</span>
-          </span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span>Play Chess
-            <span class="date text-muted d-block">26/8/2020</span>
-          </span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-      -->
+      <ul class="list-group todos mx-auto text-light" id="sortablelist">
       </ul>
 
       <form class="add text-center my-4">
@@ -53,8 +39,10 @@
     </div>
     <footer>
       <span>&#64; All Copyrights are reserved 2020</span>
-      <p>Developed by _ <span>HaWaRy</span>_</p>
+      <p>Made by<a href="https://www.linkedin.com/in/mohamed-elhawary14/" class="ml-2"><span>Mohamed Elhawary</span></a></p>
+      <span class="version-num">Version 2.0</span>
     </footer>
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

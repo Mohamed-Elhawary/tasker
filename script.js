@@ -3,6 +3,7 @@ const search    = document.querySelector('.search input');
 const list      = document.querySelector('.todos');
 let tasks       = [];
 let tasksDates  = [];
+let editedTasks = [];
 
 addForm.add.focus();
 
@@ -15,17 +16,28 @@ const generateTemplate = () => {
     html +=
     `<li class="list-group-item align-items-center" data-index="${i}">
       <div class="d-flex justify-content-between">
-        <span>${task}</span>
-        <i class="far fa-trash-alt delete"></i>
+        <span class="task-name">${task}</span>
+        <input class="edit-task-name" type="text"/>
+        <span class="options">
+          <i class="far fa-edit edit mr-2"></i>
+          <i class="far fa-trash-alt delete"></i>
+        </span>
       </div>
-      <div class="date text-muted" style="font-size: 12px">${date}</div>
+      <div class="date text-muted" style="font-size: 12px"><span class="date-text">${date}</span><span class="ml-2 if-edit-task"><span class="edit-text"></span><span class="edit-date bg-light rounded"></span></span></div>
     </li>
     `;
     //console.log(tasks);
     //console.log(tasksDates)
   }
-
   list.innerHTML = html;
+
+  editedTasks.forEach(task => {
+    let editedLI = list.querySelector(`li[data-index = '${task.edited_task_id}']`);
+    if(editedLI) {
+      editedLI.querySelector("span.edit-text").innerHTML = "edited";
+      editedLI.querySelector("span.edit-date").innerHTML = task.edited_task_date;
+    }
+  });
 };
 
 // add tasks
@@ -36,10 +48,10 @@ addForm.addEventListener('submit', e => {
   if(taskValue.length){
     tasks.push(taskValue);
     tasksDates.push(date);
-    console.log(tasks);
-    console.log(tasksDates);
-    saveDataInStorage();
+    //console.log(tasks);
+    //console.log(tasksDates);
     generateTemplate();
+    saveDataInStorage();
     addForm.reset();
   }
 
@@ -47,20 +59,130 @@ addForm.addEventListener('submit', e => {
 
 // delete tasks
 list.addEventListener('click', e => {
-  if(e.target.classList.contains('delete')){
-    e.target.parentElement.parentElement.remove();
-    tasks.splice(e.target.parentElement.parentElement.getAttribute("data-index"), 1);
-    tasksDates.splice(e.target.parentElement.parentElement.getAttribute("data-index"), 1);
+  if(e.target.classList.contains('delete')) {
+    let deletedTask = e.target.parentElement.parentElement.parentElement;
+    tasks.splice(deletedTask.getAttribute("data-index"), 1);
+    tasksDates.splice(deletedTask.getAttribute("data-index"), 1);
+    editedTasks.forEach((editedTask, i) => {
+      if(editedTask.edited_task_id == deletedTask.getAttribute("data-index")) {
+        editedTasks.splice(i, 1);
+      }
+    });
+
+    tasks.forEach((task, y) => {
+      editedTasks.forEach(editedTask => {
+        if(task == editedTask.edited_task_text) {
+          editedTask.edited_task_id = y;
+        }
+      });
+    });
     //console.log(tasks);
     //console.log(tasksDates);
     generateTemplate();
     saveDataInStorage();
     addForm.add.focus();
   }
-
 });
 
-//filter tasks mechanism
+// edit tasks
+list.addEventListener('click', e => {
+  if(e.target.classList.contains('edit')) {
+    let target = e.target;
+    let taskName     = target.parentElement.previousElementSibling.previousElementSibling,
+        editTaskName = target.parentElement.previousElementSibling;
+    if (target.classList.contains("fa-edit")) {
+      target.classList.toggle("fa-check-circle");
+      target.classList.toggle("fa-edit");
+      taskName.style.display = "none";
+      editTaskName.style.display = "initial";
+      editTaskName.focus();
+      editTaskName.value = taskName.innerHTML;
+    } else {
+      if(editTaskName.value.length > 0) {
+        triggerEdit(target, taskName, editTaskName);  
+      } else {
+        editTaskName.focus();
+      }
+    }
+  }
+});
+
+// when clickig enter or esc keys on the edit task name field 
+list.addEventListener("keydown", function(event) {
+  if(event.target.classList.contains("edit-task-name")) {
+    let target   = event.target;
+        editSign = target.nextElementSibling.querySelector(".edit"),
+        taskName = target.previousElementSibling;
+    if(event.keyCode == 13 && event.target.value.length > 0) {
+      triggerEdit(editSign, taskName, target)
+    } else if(event.keyCode == 27) {
+      editSign.classList.toggle("fa-check-circle");
+      editSign.classList.toggle("fa-edit");
+      taskName.style.display = "initial";
+      target.style.display = "none";
+    }
+  }
+});
+
+// trigger edit function
+function triggerEdit(target, taskName, editTaskName) {
+  target.classList.toggle("fa-check-circle");
+  target.classList.toggle("fa-edit");
+  taskName.style.display = "initial";
+  editTaskName.style.display = "none";
+  if(taskName.innerHTML != editTaskName.value) {
+    taskName.innerHTML = editTaskName.value;
+    tasks[taskName.parentElement.parentElement.getAttribute("data-index")] = taskName.innerHTML;
+    editedTasks.forEach((task, i) => {
+      if(task.edited_task_id == taskName.parentElement.parentElement.getAttribute("data-index")) {
+        editedTasks.splice(i, 1);
+      }
+    });
+    editedTasks.push({
+      edited_task_id: taskName.parentElement.parentElement.getAttribute("data-index"),
+      edited_task_date: new Date().toString().slice(0, -45),
+      edited_task_text: taskName.innerHTML
+    });
+    generateTemplate();
+    saveDataInStorage();  
+    //console.log(editedTasks);
+  }
+}
+
+// trigger the sortable library
+new Sortable(sortablelist, {
+  animation: 110,
+  ghostClass: 'sortable-ghost',
+  onUpdate: function() {
+    //console.log(tasks);
+    //console.log(tasksDates);
+    let newTasksArray      = [],
+        newTasksDatesArray = [];
+    list.querySelectorAll("li .task-name").forEach(task => {
+      newTasksArray.push(task.innerHTML)
+    });
+    //console.log(newTasksArray);
+    tasks = newTasksArray;
+    //console.log(tasks);
+    list.querySelectorAll("li .date-text").forEach(date => {
+      newTasksDatesArray.push(date.innerHTML)
+    });
+    //console.log(newTasksDatesArray);
+    tasksDates = newTasksDatesArray;
+    //console.log(tasksDates);
+    tasks.forEach((task, i) => {
+      editedTasks.forEach(editedTask => {
+        if(task == editedTask.edited_task_text) {
+          editedTask.edited_task_id = i;
+        }
+      });
+    });
+    generateTemplate();
+    saveDataInStorage();
+  }
+});
+
+// filter tasks mechanism
 const filterTasks = term => {
   // add filtered class
   Array.from(list.children)
@@ -91,23 +213,30 @@ search.addEventListener('keypress', e => {
 
 //save data in local storage
 function saveDataInStorage() {
-  let tasksString  = JSON.stringify(tasks);
-  let datesString  = JSON.stringify(tasksDates);
+  let tasksString       = JSON.stringify(tasks);
+  let datesString       = JSON.stringify(tasksDates);
+  let editedTasksString = JSON.stringify(editedTasks);
   localStorage.setItem("tasks", tasksString);
   localStorage.setItem("tasks-dates", datesString);
+  localStorage.setItem("edited-tasks", editedTasksString);
 }
 
 //get tasks from local storage
 function getDataFromStorage() {
-  let tasksString = localStorage.getItem("tasks");
-  let datesString = localStorage.getItem("tasks-dates");  
+  let tasksString       = localStorage.getItem("tasks");
+  let datesString       = localStorage.getItem("tasks-dates");
+  let editedTasksString = localStorage.getItem("edited-tasks");  
   tasks        = JSON.parse(tasksString);
   tasksDates   = JSON.parse(datesString);
+  editedTasks  = JSON.parse(editedTasksString);
   if(!tasks) { //if there is not any tasks stored in the local storage
     tasks = [];
   }
   if(!tasksDates) { //if there is not any tasksDates stored in the local storage
     tasksDates = [];
+  }
+  if(!editedTasks) { //if there is not any editedTasks stored in the local storage
+    editedTasks = [];
   }
 }
 
