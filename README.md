@@ -248,13 +248,13 @@ new Sortable(sortablelist, {
 
 * Search for specific task by enter the task name in the search input field.  
 
-![image](https://user-images.githubusercontent.com/69651552/105533727-358b5a00-5cf5-11eb-8696-b25428b57174.png)
-![image](https://user-images.githubusercontent.com/69651552/105533683-24424d80-5cf5-11eb-863e-5f9e82417cd8.png)
+![image](https://user-images.githubusercontent.com/69651552/105539628-b0587300-5cfd-11eb-9133-b75632c5f1bd.png)
+![image](https://user-images.githubusercontent.com/69651552/105539721-cc5c1480-5cfd-11eb-8648-c3ab295ebe32.png)
 
 * Delete any task in the list. 
 
-![image](https://user-images.githubusercontent.com/69651552/105533910-6cfa0680-5cf5-11eb-973d-5849e1e5a0d5.png)
-![image](https://user-images.githubusercontent.com/69651552/105533951-7a16f580-5cf5-11eb-87a9-ee6cc53a84ab.png)
+![image](https://user-images.githubusercontent.com/69651552/105539780-e39b0200-5cfd-11eb-954e-32cb42e6628e.png)
+![image](https://user-images.githubusercontent.com/69651552/105539825-f1e91e00-5cfd-11eb-8211-e641e3ec443b.png)
 
 * Edit any Task and see the last editing date for this edited task. 
 
