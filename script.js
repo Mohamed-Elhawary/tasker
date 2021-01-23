@@ -18,13 +18,14 @@ const generateTemplate = () => {
     let task  = tasks[i];
     let date  = tasksDates[i];
     html +=
-    `<li class="list-group-item align-items-center" data-index="${i}">
+    `<li class="list-group-item align-items-center task" data-index="${i}">
       <div class="d-flex justify-content-between task-part">
         <span class="task-name">${task}</span>
-        <input class="edit-task-name filter-from-drag" type="text"/>
-        <span class="options filter-from-drag">
-          <i class="far fa-edit edit mr-2"></i>
-          <i class="far fa-trash-alt delete"></i>
+        <input class="edit-task-name" type="text"/>
+        <span class="options">
+          <i class="fas fa-grip-vertical drag mr-2 fa-fw"></i>
+          <i class="far fa-edit edit mr-2 filter-from-drag fa-fw"></i>
+          <i class="far fa-trash-alt delete filter-from-drag fa-fw"></i>
         </span>
       </div>
       <div class="date text-muted" style="font-size: 12px"><span class="date-text">${date}</span><span class="ml-2 if-edit-task"><span class="edit-text filter-from-drag"></span><span class="edit-date bg-light rounded"></span></span></div>
@@ -82,7 +83,6 @@ list.addEventListener('click', e => {
     deleteBox.appendChild(deleteBtn);
 
     deleteBox.classList.add("delete-box");
-    deleteBox.classList.add("filter-from-drag");
     deleteBtn.classList.add("delete-btn");
     cancelBtn.classList.add("cancel-btn");
     deleteField.classList.add("delete-field");
@@ -91,6 +91,9 @@ list.addEventListener('click', e => {
     deletedTask.querySelector(".task-part").classList.toggle("justify-content-between");
     deletedTask.querySelector(".task-part").classList.toggle("d-none");
     deletedTask.querySelector(".date").classList.toggle("d-none");
+    list.querySelectorAll(".task").forEach(task => {
+      task.classList.add("filter-from-drag");
+    });
   }
 });
 
@@ -120,6 +123,9 @@ list.addEventListener("click", e => {
     //console.log(tasksDates);
     generateTemplate();
     saveDataInStorage();
+    list.querySelectorAll(".task").forEach(task => {
+      task.classList.remove("filter-from-drag");
+    });
   }
 });
 
@@ -133,6 +139,9 @@ list.addEventListener("click", e => {
     canceledTask.querySelector(".task-part").classList.toggle("justify-content-between");
     canceledTask.querySelector(".task-part").classList.toggle("d-none");
     canceledTask.querySelector(".date").classList.toggle("d-none");
+    list.querySelectorAll(".task").forEach(task => {
+      task.classList.remove("filter-from-drag");
+    });
   }
 });
 
@@ -231,6 +240,7 @@ new Sortable(sortablelist, {
   animation: 110,
   ghostClass: 'sortable-ghost',
   filter: '.filter-from-drag',
+  handle: '.drag',
   onUpdate: function() {
     //console.log(tasks);
     //console.log(tasksDates);

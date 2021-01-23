@@ -7,7 +7,7 @@ Tasker is a smart tasks list application that allows you to organize and add you
 
 ## Demo and How to Interact  
 
-![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105563820-2d98dd80-5d28-11eb-97ae-478055e0c0ee.gif)
+![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105568109-993a7500-5d3f-11eb-9ff9-c27be6371602.gif)
 
 ## Getting Started
 
@@ -352,6 +352,29 @@ cancelBtn.addEventListener("click", function() {
 });
 
 ```
+* [v2.2](https://github.com/Mohamed-Elhawary/tasker/tree/v2.2)  
+
+  - Add a drag icon that user can uses it to drag tasks and sort his list instead of dragging the task element itself to sort the list. 
+
+```
+// create and inject tasks into the UI
+const generateTemplate = () => {
+    html +=
+    `<li class="list-group-item align-items-center task" data-index="${i}">
+      <div class="d-flex justify-content-between task-part">
+        <span class="task-name">${task}</span>
+        <input class="edit-task-name" type="text"/>
+        <span class="options">
+          <i class="fas fa-grip-vertical drag mr-2 fa-fw"></i>
+          <i class="far fa-edit edit mr-2 filter-from-drag fa-fw"></i>
+          <i class="far fa-trash-alt delete filter-from-drag fa-fw"></i>
+        </span>
+      </div>
+      <div class="date text-muted" style="font-size: 12px"><span class="date-text">${date}</span><span class="ml-2 if-edit-task"><span class="edit-text filter-from-drag"></span><span class="edit-date bg-light rounded"></span></span></div>
+    </li>
+    `;
+};
+```
 
 ## Features
 
@@ -390,6 +413,10 @@ cancelBtn.addEventListener("click", function() {
 * Add delete all tasks button that allows to the user to clear the list.
 ![image](https://user-images.githubusercontent.com/69651552/105562755-2ff93880-5d24-11eb-9c44-1de0e7c32743.png)
 ![image](https://user-images.githubusercontent.com/69651552/105562767-3c7d9100-5d24-11eb-9471-26209d40c7c7.png)
+
+
+* Add a drag icon that user can uses it to drag tasks and sort his list instead of dragging the task element itself to sort the list. 
+![image](https://user-images.githubusercontent.com/69651552/105568039-2c26df80-5d3f-11eb-9cc8-e0a5addfcf66.png)
 
 
 ## Built With
