@@ -1,13 +1,17 @@
-const addForm   = document.querySelector('.add');
-const search    = document.querySelector('.search input');
-const list      = document.querySelector('.todos');
+const addForm           = document.querySelector('.add');
+const search            = document.querySelector('.search input');
+const list              = document.querySelector('.todos');
+const deleteAllTasksBtn = document.querySelector(".danger-zone .delete-all-tasks-btn");
+const deleteAllBox      = document.querySelector(".danger-zone .delete-all-box");
+const deleteAllBtn      = deleteAllBox.querySelector(".delete-all-btn");
+const cancelBtn         = deleteAllBox.querySelector(".cancel-btn");
 let tasks       = [];
 let tasksDates  = [];
 let editedTasks = [];
 
 addForm.add.focus();
 
-//create and inject tasks into the UI
+// create and inject tasks into the UI
 const generateTemplate = () => {
   let html = "";
   for (let i in tasks, tasksDates) {
@@ -15,15 +19,15 @@ const generateTemplate = () => {
     let date  = tasksDates[i];
     html +=
     `<li class="list-group-item align-items-center" data-index="${i}">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between task-part">
         <span class="task-name">${task}</span>
         <input class="edit-task-name" type="text"/>
-        <span class="options">
+        <span class="options filter-from-drag">
           <i class="far fa-edit edit mr-2"></i>
           <i class="far fa-trash-alt delete"></i>
         </span>
       </div>
-      <div class="date text-muted" style="font-size: 12px"><span class="date-text">${date}</span><span class="ml-2 if-edit-task"><span class="edit-text"></span><span class="edit-date bg-light rounded"></span></span></div>
+      <div class="date text-muted" style="font-size: 12px"><span class="date-text">${date}</span><span class="ml-2 if-edit-task"><span class="edit-text filter-from-drag"></span><span class="edit-date bg-light rounded"></span></span></div>
     </li>
     `;
     //console.log(tasks);
@@ -40,7 +44,7 @@ const generateTemplate = () => {
   });
 };
 
-// add tasks
+// add task
 addForm.addEventListener('submit', e => {
   e.preventDefault();
   const taskValue = addForm.add.value.trim();
@@ -53,14 +57,50 @@ addForm.addEventListener('submit', e => {
     generateTemplate();
     saveDataInStorage();
     addForm.reset();
+    addForm.add.focus();
   }
 
 });
 
-// delete tasks
+// when clicking on the delete icon
 list.addEventListener('click', e => {
   if(e.target.classList.contains('delete')) {
-    let deletedTask = e.target.parentElement.parentElement.parentElement;
+    let deleteBox        = document.createElement("div"),
+        deleteField      = document.createElement("p"),
+        deleteFieldText  = document.createTextNode("Are you sure to delete this task ?"),
+        deleteBtn        = document.createElement("button"),
+        cancelBtn        = document.createElement("button"),
+        deleteBtnText    = document.createTextNode("Delete"),
+        cancelBtnText    = document.createTextNode("Cancel"),
+        deletedTask      = e.target.parentElement.parentElement.parentElement;
+    
+    deleteBtn.appendChild(deleteBtnText);
+    cancelBtn.appendChild(cancelBtnText);
+    deleteField.appendChild(deleteFieldText);
+    deleteBox.appendChild(deleteField);
+    deleteBox.appendChild(cancelBtn);
+    deleteBox.appendChild(deleteBtn);
+
+    deleteBox.classList.add("delete-box");
+    deleteBox.classList.add("filter-from-drag");
+    deleteBtn.classList.add("delete-btn");
+    cancelBtn.classList.add("cancel-btn");
+    deleteField.classList.add("delete-field");
+    deletedTask.appendChild(deleteBox);
+    deletedTask.querySelector(".task-part").classList.toggle("d-flex");
+    deletedTask.querySelector(".task-part").classList.toggle("justify-content-between");
+    deletedTask.querySelector(".task-part").classList.toggle("d-none");
+    deletedTask.querySelector(".date").classList.toggle("d-none");
+  }
+});
+
+// delete task 
+list.addEventListener("click", e => {
+  if(e.target.classList.contains('delete-btn')) {
+    let deletedTask = e.target.parentElement.parentElement,
+        deleteBox  = e.target.parentElement;
+    
+    deleteBox.style.display = 'none';
     tasks.splice(deletedTask.getAttribute("data-index"), 1);
     tasksDates.splice(deletedTask.getAttribute("data-index"), 1);
     editedTasks.forEach((editedTask, i) => {
@@ -80,11 +120,48 @@ list.addEventListener('click', e => {
     //console.log(tasksDates);
     generateTemplate();
     saveDataInStorage();
-    addForm.add.focus();
   }
 });
 
-// edit tasks
+// when clicking on the cancel btn in the tasks list
+list.addEventListener("click", e => {
+  if(e.target.classList.contains('cancel-btn')) {
+    let deleteBox    = e.target.parentElement,
+        canceledTask = e.target.parentElement.parentElement;
+    deleteBox.parentElement.removeChild(deleteBox);
+    canceledTask.querySelector(".task-part").classList.toggle("d-flex");
+    canceledTask.querySelector(".task-part").classList.toggle("justify-content-between");
+    canceledTask.querySelector(".task-part").classList.toggle("d-none");
+    canceledTask.querySelector(".date").classList.toggle("d-none");
+  }
+});
+
+// when clicking on the delete all tasks btn
+deleteAllTasksBtn.addEventListener("click", function() {
+  this.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none");
+});
+
+// delete all tasks (clear the tasks list)
+deleteAllBtn.addEventListener("click", function() {
+  tasks = [];
+  tasksDates = [];
+  editedTasks = [];
+  generateTemplate();
+  saveDataInStorage();
+  addForm.reset();
+  addForm.add.focus();
+  deleteAllTasksBtn.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none"); 
+});
+
+// when clicking on the cancel btn in the delete all box
+cancelBtn.addEventListener("click", function() {
+  deleteAllTasksBtn.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none");
+});
+
+// when clicking on the edit icon
 list.addEventListener('click', e => {
   if(e.target.classList.contains('edit')) {
     let target = e.target;
@@ -99,7 +176,7 @@ list.addEventListener('click', e => {
       editTaskName.value = taskName.innerHTML;
     } else {
       if(editTaskName.value.length > 0) {
-        triggerEdit(target, taskName, editTaskName);  
+        editTask(target, taskName, editTaskName);  
       } else {
         editTaskName.focus();
       }
@@ -107,14 +184,14 @@ list.addEventListener('click', e => {
   }
 });
 
-// when clickig enter or esc keys on the edit task name field 
+// when clicking enter or esc keys on the edit task name field 
 list.addEventListener("keydown", function(event) {
   if(event.target.classList.contains("edit-task-name")) {
     let target   = event.target;
         editSign = target.nextElementSibling.querySelector(".edit"),
         taskName = target.previousElementSibling;
     if(event.keyCode == 13 && event.target.value.length > 0) {
-      triggerEdit(editSign, taskName, target)
+      editTask(editSign, taskName, target)
     } else if(event.keyCode == 27) {
       editSign.classList.toggle("fa-check-circle");
       editSign.classList.toggle("fa-edit");
@@ -124,8 +201,8 @@ list.addEventListener("keydown", function(event) {
   }
 });
 
-// trigger edit function
-function triggerEdit(target, taskName, editTaskName) {
+// edit task 
+function editTask(target, taskName, editTaskName) {
   target.classList.toggle("fa-check-circle");
   target.classList.toggle("fa-edit");
   taskName.style.display = "initial";
@@ -153,6 +230,7 @@ function triggerEdit(target, taskName, editTaskName) {
 new Sortable(sortablelist, {
   animation: 110,
   ghostClass: 'sortable-ghost',
+  filter: '.filter-from-drag',
   onUpdate: function() {
     //console.log(tasks);
     //console.log(tasksDates);
@@ -202,7 +280,7 @@ search.addEventListener('keyup', () => {
   filterTasks(term);
 });
 
-//prevent enter key default while searching
+// prevent enter key default while searching
 search.addEventListener('keypress', e => {
   let key = e.keyCode;
   if (key == 13) {
@@ -211,7 +289,7 @@ search.addEventListener('keypress', e => {
 
 });
 
-//save data in local storage
+// save data in local storage
 function saveDataInStorage() {
   let tasksString       = JSON.stringify(tasks);
   let datesString       = JSON.stringify(tasksDates);
@@ -221,7 +299,7 @@ function saveDataInStorage() {
   localStorage.setItem("edited-tasks", editedTasksString);
 }
 
-//get tasks from local storage
+// get data from local storage
 function getDataFromStorage() {
   let tasksString       = localStorage.getItem("tasks");
   let datesString       = localStorage.getItem("tasks-dates");
@@ -229,17 +307,17 @@ function getDataFromStorage() {
   tasks        = JSON.parse(tasksString);
   tasksDates   = JSON.parse(datesString);
   editedTasks  = JSON.parse(editedTasksString);
-  if(!tasks) { //if there is not any tasks stored in the local storage
+  if(!tasks) { // if there is not any tasks stored in the local storage
     tasks = [];
   }
-  if(!tasksDates) { //if there is not any tasksDates stored in the local storage
+  if(!tasksDates) { // if there is not any tasksDates stored in the local storage
     tasksDates = [];
   }
-  if(!editedTasks) { //if there is not any editedTasks stored in the local storage
+  if(!editedTasks) { // if there is not any editedTasks stored in the local storage
     editedTasks = [];
   }
 }
 
-//initial functions when reloading page
+// initial functions when reloading page
 getDataFromStorage();
 generateTemplate();

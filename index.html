@@ -1,11 +1,10 @@
-<!--v.2.0-->
+<!--v.2.1-->
 <!-- ////////What's New ///////////
   <<<<Main Feature>>>>>>
-  1- Added the edit feature that allows to the user to can edit his tasks anytime beside showing the last editing date for each task.
-  2- Added the sort feature that allow to the user to can sort his tasks list with his prefer sort as he want by dragging the tasks.
-   <<<<<<<Some Enhancements>>>>>>>>
-     * Smooth scrolling for the app with with awesome shape scroll.
-     * Add favicon for the App.
+    1- Add delete box that popups to the user when clicking on the delete sign to be sure that he wants already to delete the required task. 
+    2- Add delete all tasks button that allows to the user to clear the list.
+    <<<<Some Enhancements>>>>>
+      1- Add button for add task under the add task field.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +16,15 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Tasker | Your Tasks Organizer</title>
   </head>
   <body>
     <div class="container">
       <header class="text-center text-light my-4">
-        <h1 class="mb-4">Tasker</h1>
+        <h1 class="mb-4">Tasker <span>EG</span></h1>
         <form class="search">
           <input class="form-control m-auto" type="text" name="search" placeholder="Search Task" autocomplete="off"/>
         </form>
@@ -35,12 +36,21 @@
       <form class="add text-center my-4">
         <label class="text-light">Add a new Task...</label>
         <input class="form-control m-auto" type="text" name="add" autocomplete="off"/>
+        <input type="submit" class="mt-4" value="Add Task">
       </form>
+      <div class="danger-zone text-center mt-5">
+        <button class="delete-all-tasks-btn">Delete All Tasks</button>
+        <div class="delete-all-box d-none">
+          <p class="delete-all-text">Are you sure to delete all tasks ?</p>
+          <button class="cancel-btn">Cancel</button>
+          <button class="delete-all-btn">Delete All</button>
+        </div>
+      </div>
     </div>
     <footer>
       <span>&#64; All Copyrights are reserved 2020</span>
       <p>Made by<a href="https://www.linkedin.com/in/mohamed-elhawary14/" class="ml-2"><span>Mohamed Elhawary</span></a></p>
-      <span class="version-num">Version 2.0</span>
+      <span class="version-num">Version 2.1</span>
     </footer>
     <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
     <script src="script.js"></script>

@@ -1,17 +1,17 @@
 # Tasker
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2f1b2e55-540e-4f88-96d4-987c157d3dc8/deploy-status)](https://app.netlify.com/sites/tasker14/deploys)  
 
-Tasker is a smart tasks list application that allows you to organize and add your daily tasks including other features.  
+Tasker is a smart tasks list application that allows you to organize and add your daily tasks including other awesome features.  
 
 ![Screenshot](preview.png)
 
 ## Demo and How to Interact  
 
-![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105536262-ba2ba780-5cf8-11eb-8e26-069b2955c02f.gif)
+![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105563820-2d98dd80-5d28-11eb-97ae-478055e0c0ee.gif)
 
 ## Getting Started
 
-You can try the Game APP from [here](https://tasker14.netlify.app/)
+You can try the Game APP from [here](https://tasker-eg.netlify.app/)
 
 ### Prerequisites
 
@@ -238,6 +238,121 @@ new Sortable(sortablelist, {
 });
 ```  
 
+* [v2.1](https://github.com/Mohamed-Elhawary/tasker/tree/v2.1)  
+
+  - Add delete box that popups to the user when clicking on the delete sign to be sure that he wants already to delete the required task.
+
+```
+// when clicking on the delete icon
+list.addEventListener('click', e => {
+  if(e.target.classList.contains('delete')) {
+    let deleteBox        = document.createElement("div"),
+        deleteField      = document.createElement("p"),
+        deleteFieldText  = document.createTextNode("Are you sure to delete this task ?"),
+        deleteBtn        = document.createElement("button"),
+        cancelBtn        = document.createElement("button"),
+        deleteBtnText    = document.createTextNode("Delete"),
+        cancelBtnText    = document.createTextNode("Cancel"),
+        deletedTask      = e.target.parentElement.parentElement.parentElement;
+    
+    deleteBtn.appendChild(deleteBtnText);
+    cancelBtn.appendChild(cancelBtnText);
+    deleteField.appendChild(deleteFieldText);
+    deleteBox.appendChild(deleteField);
+    deleteBox.appendChild(cancelBtn);
+    deleteBox.appendChild(deleteBtn);
+
+    deleteBox.classList.add("delete-box");
+    deleteBox.classList.add("filter-from-drag");
+    deleteBtn.classList.add("delete-btn");
+    cancelBtn.classList.add("cancel-btn");
+    deleteField.classList.add("delete-field");
+    deletedTask.appendChild(deleteBox);
+    deletedTask.querySelector(".task-part").classList.toggle("d-flex");
+    deletedTask.querySelector(".task-part").classList.toggle("justify-content-between");
+    deletedTask.querySelector(".task-part").classList.toggle("d-none");
+    deletedTask.querySelector(".date").classList.toggle("d-none");
+  }
+});
+
+// delete task 
+list.addEventListener("click", e => {
+  if(e.target.classList.contains('delete-btn')) {
+    let deletedTask = e.target.parentElement.parentElement,
+        deleteBox  = e.target.parentElement;
+    
+    deleteBox.style.display = 'none';
+    tasks.splice(deletedTask.getAttribute("data-index"), 1);
+    tasksDates.splice(deletedTask.getAttribute("data-index"), 1);
+    editedTasks.forEach((editedTask, i) => {
+      if(editedTask.edited_task_id == deletedTask.getAttribute("data-index")) {
+        editedTasks.splice(i, 1);
+      }
+    });
+
+    tasks.forEach((task, y) => {
+      editedTasks.forEach(editedTask => {
+        if(task == editedTask.edited_task_text) {
+          editedTask.edited_task_id = y;
+        }
+      });
+    });
+    //console.log(tasks);
+    //console.log(tasksDates);
+    generateTemplate();
+    saveDataInStorage();
+  }
+});
+
+// when clicking on the cancel btn in the tasks list
+list.addEventListener("click", e => {
+  if(e.target.classList.contains('cancel-btn')) {
+    let deleteBox    = e.target.parentElement,
+        canceledTask = e.target.parentElement.parentElement;
+    deleteBox.parentElement.removeChild(deleteBox);
+    canceledTask.querySelector(".task-part").classList.toggle("d-flex");
+    canceledTask.querySelector(".task-part").classList.toggle("justify-content-between");
+    canceledTask.querySelector(".task-part").classList.toggle("d-none");
+    canceledTask.querySelector(".date").classList.toggle("d-none");
+  }
+});
+```
+
+  - Add delete all tasks button that allows to the user to clear the list.
+
+```
+const deleteAllTasksBtn = document.querySelector(".danger-zone .delete-all-tasks-btn");
+const deleteAllBox      = document.querySelector(".danger-zone .delete-all-box");
+const deleteAllBtn      = deleteAllBox.querySelector(".delete-all-btn");
+const cancelBtn         = deleteAllBox.querySelector(".cancel-btn");
+
+// when clicking on the delete all tasks btn
+deleteAllTasksBtn.addEventListener("click", function() {
+  this.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none");
+});
+
+// delete all tasks (clear the tasks list)
+deleteAllBtn.addEventListener("click", function() {
+  tasks = [];
+  tasksDates = [];
+  editedTasks = [];
+  generateTemplate();
+  saveDataInStorage();
+  addForm.reset();
+  addForm.add.focus();
+  deleteAllTasksBtn.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none"); 
+});
+
+// when clicking on the cancel btn in the delete all box
+cancelBtn.addEventListener("click", function() {
+  deleteAllTasksBtn.classList.toggle("d-none");
+  deleteAllBox.classList.toggle("d-none");
+});
+
+```
+
 ## Features
 
 * Depneding on local storage to save the tasks from lost.
@@ -266,6 +381,15 @@ new Sortable(sortablelist, {
 ![image](https://user-images.githubusercontent.com/69651552/105533128-66b75a80-5cf4-11eb-8ea5-82676519cee0.png)
 ![image](https://user-images.githubusercontent.com/69651552/105533218-7a62c100-5cf4-11eb-8828-6e317428cabe.png)
 ![image](https://user-images.githubusercontent.com/69651552/105533265-8d759100-5cf4-11eb-881f-a3e1b79cade7.png)
+
+
+* A popup delete box that appears to the user when clicking on the delete sign to be sure that he wants already to delete the required task.
+![image](https://user-images.githubusercontent.com/69651552/105560692-359f5000-5d1d-11eb-9dea-7eaaf19d5381.png)
+![image](https://user-images.githubusercontent.com/69651552/105560706-43ed6c00-5d1d-11eb-8a5a-95991e90df72.png)
+
+* Add delete all tasks button that allows to the user to clear the list.
+![image](https://user-images.githubusercontent.com/69651552/105562755-2ff93880-5d24-11eb-9c44-1de0e7c32743.png)
+![image](https://user-images.githubusercontent.com/69651552/105562767-3c7d9100-5d24-11eb-9471-26209d40c7c7.png)
 
 
 ## Built With

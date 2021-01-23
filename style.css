@@ -20,6 +20,10 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
+h1 span {
+    font-size: 12px;
+    color: #ccc;
+}
 
 .container {
     max-width: 700px;
@@ -32,6 +36,21 @@ form input[type=text]:focus {
     background: rgba(0,0,0,0.2);
     max-width: 700px;
 }
+
+form input[type=submit] {
+    width: 100%;
+    padding: 5px 0;
+    color: #2A2649;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: .4s;
+}
+
+form input[type=submit]:hover {
+    background-color: #ccc;
+} 
 
 .todos li {
     background: #423a6f;
@@ -159,6 +178,52 @@ form input[type=text]:focus {
     transition: .4s; 
 }
 
+.delete-box .cancel-btn, .delete-box .delete-btn,
+.danger-zone .delete-all-tasks-btn,
+.danger-zone .delete-all-box .delete-all-btn,
+.danger-zone .delete-all-box .cancel-btn {
+    width: 48%;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 3px 0;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.delete-box .cancel-btn,
+.danger-zone .delete-all-box .cancel-btn {
+    margin-right: 2%;
+}
+
+.delete-box .cancel-btn:hover,
+.danger-zone .delete-all-box .cancel-btn:hover {
+    background: #ccc;
+}
+
+.delete-box .delete-btn,
+.danger-zone .delete-all-box .delete-all-btn,
+.danger-zone .delete-all-tasks-btn {
+    color: #fff;
+    background: #dc3545;
+}
+
+.delete-box .delete-btn:hover,
+.danger-zone .delete-all-tasks-btn:hover {
+    background-color: #e63946;
+}
+
+.danger-zone .delete-all-tasks-btn {
+    width: initial;
+    padding: 5px;
+}
+
+.danger-zone .delete-all-box .delete-all-text {
+    color: #fff;
+    font-weight: bold;
+}
+
 footer {
     margin: 100px auto;
     text-align: center;
@@ -185,7 +250,6 @@ footer p a span {
 
 footer .version-num {
     font-size: 12px;
-    font-weight: 400;
     animation: lighting 2s infinite;
 }
 
