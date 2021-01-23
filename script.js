@@ -21,7 +21,7 @@ const generateTemplate = () => {
     `<li class="list-group-item align-items-center" data-index="${i}">
       <div class="d-flex justify-content-between task-part">
         <span class="task-name">${task}</span>
-        <input class="edit-task-name" type="text"/>
+        <input class="edit-task-name filter-from-drag" type="text"/>
         <span class="options filter-from-drag">
           <i class="far fa-edit edit mr-2"></i>
           <i class="far fa-trash-alt delete"></i>
