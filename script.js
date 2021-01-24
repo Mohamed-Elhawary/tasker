@@ -279,29 +279,29 @@ new Sortable(sortablelist, {
 
 // filter tasks mechanism
 const filterTasks = term => {
-  // add filtered class
-  Array.from(list.children)
+  if(list.children.length > 0) {
+    // add filtered class
+    Array.from(list.children)
     .filter(task  => !task.textContent.toLowerCase().includes(term))
     .forEach(task => task.classList.add('filtered'));
 
-  // remove filtered class
-  Array.from(list.children)
-    .filter(task  => task.textContent.toLowerCase().includes(term))
-    .forEach(task => task.classList.remove('filtered'));
+    // remove filtered class
+    Array.from(list.children)
+      .filter(task  => task.textContent.toLowerCase().includes(term))
+      .forEach(task => task.classList.remove('filtered'));
 
-  // check if there are no search tasks found
-  let filteredTasks = list.querySelectorAll(".task.filtered");
-  if(filteredTasks.length == list.children.length) {
-    noSearchTasks.classList.remove("d-none");
-  } else {
-    noSearchTasks.classList.add("d-none");
+    // check if there are no search tasks found
+    let filteredTasks = list.querySelectorAll(".task.filtered");
+    if(filteredTasks.length == list.children.length) {
+      noSearchTasks.classList.remove("d-none");
+    } else {
+      noSearchTasks.classList.add("d-none");
+    }
   }
-  
-
 };
 
 // filter tasks event
-search.addEventListener('keyup', () => {
+search.addEventListener('input', () => {
   const term = search.value.trim().toLowerCase();
   filterTasks(term);
 });
