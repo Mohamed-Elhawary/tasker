@@ -33,10 +33,17 @@
       <ul class="list-group todos mx-auto text-light" id="sortablelist">
       </ul>
 
+      <div class="empty-list text-center text-light d-none">
+        <p>No Tasks to Show</p>
+      </div>
+      
+      <div class="no-search-tasks text-center text-light d-none">
+        <p>No Search Tasks are Found</p>
+      </div>
+
       <form class="add text-center my-4">
-        <label class="text-light">Add a new Task...</label>
-        <input class="form-control m-auto" type="text" name="add" autocomplete="off"/>
-        <input type="submit" class="mt-4" value="Add Task">
+        <input class="form-control m-auto" type="text" name="add" autocomplete="off" placeholder="Add Task.."/>
+        <input type="submit" class="mt-4 rounded" value="Add Task">
       </form>
       <div class="danger-zone text-center mt-5">
         <button class="delete-all-tasks-btn">Delete All Tasks</button>
@@ -49,8 +56,8 @@
     </div>
     <footer>
       <span>&#64; All Copyrights are reserved 2020</span>
-      <p>Made by<a href="https://www.linkedin.com/in/mohamed-elhawary14/" class="ml-2"><span>Mohamed Elhawary</span></a></p>
-      <span class="version-num">Version 2.2</span>
+      <p>Made by<a href="https://www.linkedin.com/in/mohamed-elhawary14/" class="ml-2" target="_blank"><span>Mohamed Elhawary</span></a></p>
+      <span class="version-num"><a href="https://github.com/Mohamed-Elhawary/tasker" target="_blank">Version 2.2</a></span>
     </footer>
     <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
     <script src="script.js"></script>

@@ -1,3 +1,4 @@
+// Global Variables
 const addForm           = document.querySelector('.add');
 const search            = document.querySelector('.search input');
 const list              = document.querySelector('.todos');
@@ -5,6 +6,8 @@ const deleteAllTasksBtn = document.querySelector(".danger-zone .delete-all-tasks
 const deleteAllBox      = document.querySelector(".danger-zone .delete-all-box");
 const deleteAllBtn      = deleteAllBox.querySelector(".delete-all-btn");
 const cancelBtn         = deleteAllBox.querySelector(".cancel-btn");
+const emptyListBox      = document.querySelector(".empty-list");
+const noSearchTasks     = document.querySelector(".no-search-tasks");
 let tasks       = [];
 let tasksDates  = [];
 let editedTasks = [];
@@ -59,6 +62,7 @@ addForm.addEventListener('submit', e => {
     saveDataInStorage();
     addForm.reset();
     addForm.add.focus();
+    emptyList();
   }
 
 });
@@ -66,6 +70,7 @@ addForm.addEventListener('submit', e => {
 // when clicking on the delete icon
 list.addEventListener('click', e => {
   if(e.target.classList.contains('delete')) {
+    addForm.add.blur();
     let deleteBox        = document.createElement("div"),
         deleteField      = document.createElement("p"),
         deleteFieldText  = document.createTextNode("Are you sure to delete this task ?"),
@@ -123,6 +128,7 @@ list.addEventListener("click", e => {
     //console.log(tasksDates);
     generateTemplate();
     saveDataInStorage();
+    emptyList();
     list.querySelectorAll(".task").forEach(task => {
       task.classList.remove("filter-from-drag");
     });
@@ -162,6 +168,7 @@ deleteAllBtn.addEventListener("click", function() {
   addForm.add.focus();
   deleteAllTasksBtn.classList.toggle("d-none");
   deleteAllBox.classList.toggle("d-none"); 
+  emptyList();
 });
 
 // when clicking on the cancel btn in the delete all box
@@ -282,6 +289,15 @@ const filterTasks = term => {
     .filter(task  => task.textContent.toLowerCase().includes(term))
     .forEach(task => task.classList.remove('filtered'));
 
+  // check if there are no search tasks found
+  let filteredTasks = list.querySelectorAll(".task.filtered");
+  if(filteredTasks.length == list.children.length) {
+    noSearchTasks.classList.remove("d-none");
+  } else {
+    noSearchTasks.classList.add("d-none");
+  }
+  
+
 };
 
 // filter tasks event
@@ -331,3 +347,14 @@ function getDataFromStorage() {
 // initial functions when reloading page
 getDataFromStorage();
 generateTemplate();
+
+// empty list function
+function emptyList() {
+  if(tasks.length == 0) {
+    emptyListBox.classList.remove("d-none");
+  } else {
+    emptyListBox.classList.add("d-none");
+  }
+}
+
+emptyList();
