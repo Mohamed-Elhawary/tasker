@@ -281,14 +281,14 @@ new Sortable(sortablelist, {
 const filterTasks = term => {
   if(list.children.length > 0) {
     // add filtered class
-    Array.from(list.children)
+    Array.from(list.querySelectorAll(".task-name"))
     .filter(task  => !task.textContent.toLowerCase().includes(term))
-    .forEach(task => task.classList.add('filtered'));
+    .forEach(task => task.parentElement.parentElement.classList.add('filtered'));
 
     // remove filtered class
-    Array.from(list.children)
+    Array.from(list.querySelectorAll(".task-name"))
       .filter(task  => task.textContent.toLowerCase().includes(term))
-      .forEach(task => task.classList.remove('filtered'));
+      .forEach(task => task.parentElement.parentElement.classList.remove('filtered'));
 
     // check if there are no search tasks found
     let filteredTasks = list.querySelectorAll(".task.filtered");
