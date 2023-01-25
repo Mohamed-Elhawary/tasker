@@ -1,21 +1,16 @@
 # Tasker
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2f1b2e55-540e-4f88-96d4-987c157d3dc8/deploy-status)](https://app.netlify.com/sites/tasker-eg/deploys)
 
-Tasker is a smart tasks list app that allows you to organize and add your daily tasks including other features.
+Tasker is a smart tasks list App that allows you to organize and add your daily tasks including other features.
+
+You can view the App from [here](https://tasker-eg.netlify.app/)
 
 ![Screenshot](preview.png)
 
-## Demo and How to Interact  
+## Demo  
 
 ![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105568109-993a7500-5d3f-11eb-9ff9-c27be6371602.gif)
-
-## Getting Started
-
-You can try the Game APP from [here](https://tasker-eg.netlify.app/)
-
-### Prerequisites
-
-Just Modern Browser like "Chrome" and a Code Editor for Deployment and Develop.
 
 ## Versions
 
@@ -24,6 +19,7 @@ Just Modern Browser like "Chrome" and a Code Editor for Deployment and Develop.
 * [v1.1](https://github.com/Mohamed-Elhawary/tasker/tree/v1.1)  
 
   - Depending on local storage to save the user tasks in case of reloading or close the App.
+
 ```
 //save data in local storage
 function saveDataInStorage() {
@@ -84,6 +80,7 @@ const generateTemplate = () => {
 * [v2.0](https://github.com/Mohamed-Elhawary/tasker/tree/v2.0) 
 
 - Edit any Task and see the last editing date for this edited task.
+
 ```
 let editedTasks = [];
 
@@ -350,8 +347,8 @@ cancelBtn.addEventListener("click", function() {
   deleteAllTasksBtn.classList.toggle("d-none");
   deleteAllBox.classList.toggle("d-none");
 });
-
 ```
+
 * [v2.2](https://github.com/Mohamed-Elhawary/tasker/tree/v2.2)  
 
   - Add a drag icon that user can uses it to drag tasks and sort his list instead of dragging the task element itself to sort the list. 
@@ -444,10 +441,6 @@ const generateTemplate = () => {
 * [Github](https://github.com/Mohamed-Elhawary)  
 * [Behance](https://www.behance.net/mohamed-elhawary14)
 * [Codepen](https://codepen.io/Mohamed-ElHawary) 
-
-## Deploy with Me
-
-Feel Free to Deploy it with me, send Issues or a Pull Request and i'll deal with you, just test it First.
 
 ## License
 
