@@ -434,7 +434,7 @@ const generateTemplate = () => {
 
 * [Mohamed Elhawary](https://www.linkedin.com/in/mohamed-elhawary14/)
 
-## Contact Me  
+## Contact me through my social accounts
 
 * Email: mohamed.k.elhawary@gmail.com
 * [LinkedIn](https://www.linkedin.com/in/mohamed-elhawary14/)
