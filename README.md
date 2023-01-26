@@ -404,17 +404,19 @@ const generateTemplate = () => {
 
 
 * A popup delete box that appears to the user when clicking on the delete sign to be sure that he wants already to delete the required task.
+
 ![image](https://user-images.githubusercontent.com/69651552/105560692-359f5000-5d1d-11eb-9dea-7eaaf19d5381.png)
 ![image](https://user-images.githubusercontent.com/69651552/105560706-43ed6c00-5d1d-11eb-8a5a-95991e90df72.png)
 
 * Add delete all tasks button that allows to the user to clear the list.
+
 ![image](https://user-images.githubusercontent.com/69651552/105562755-2ff93880-5d24-11eb-9c44-1de0e7c32743.png)
 ![image](https://user-images.githubusercontent.com/69651552/105562767-3c7d9100-5d24-11eb-9471-26209d40c7c7.png)
 
 
 * Add a drag icon that user can uses it to drag tasks and sort his list instead of dragging the task element itself to sort the list. 
-![image](https://user-images.githubusercontent.com/69651552/105568039-2c26df80-5d3f-11eb-9cc8-e0a5addfcf66.png)
 
+![image](https://user-images.githubusercontent.com/69651552/105568039-2c26df80-5d3f-11eb-9cc8-e0a5addfcf66.png)
 
 ## Built With
 
