@@ -420,7 +420,7 @@ const generateTemplate = () => {
 
 * HTML5
 * CSS3
-* ES6 Modern JS Syntax 
+* ES6 (Modern JS Syntax) 
 
 ## Libraries 
 
