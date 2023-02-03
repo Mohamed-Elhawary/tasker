@@ -375,7 +375,7 @@ const generateTemplate = () => {
 
 ## Features
 
-* Depneding on local storage to save the tasks from lost.
+* Depending on local storage to save the tasks from lost.
 
 * Adding the date and time for each created task.
 
