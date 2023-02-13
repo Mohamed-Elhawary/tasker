@@ -10,7 +10,7 @@ You can view the App from [here](https://tasker-eg.netlify.app/)
 
 ## Demo  
 
-![tasker-your-tasks-organizer-goog](https://user-images.githubusercontent.com/69651552/105568109-993a7500-5d3f-11eb-9ff9-c27be6371602.gif)
+![Demo](https://user-images.githubusercontent.com/69651552/105568109-993a7500-5d3f-11eb-9ff9-c27be6371602.gif)
 
 ## Versions
 
@@ -418,19 +418,19 @@ const generateTemplate = () => {
 
 ![image](https://user-images.githubusercontent.com/69651552/105568039-2c26df80-5d3f-11eb-9cc8-e0a5addfcf66.png)
 
-## Built With
+## Built with
 
-* HTML5
-* CSS3
+* HTML
+* CSS
 * Vanilla JS
 
 ## Libraries 
 
-* [Sortable.js](https://github.com/SortableJS/Sortable)
+* [Sortable](https://github.com/SortableJS/Sortable)
 
 ## Frameworks
 
-* [Bootstrap 4](https://getbootstrap.com/)
+* [Bootstrap](https://getbootstrap.com/)
 
 ## Author
 
@@ -439,7 +439,7 @@ const generateTemplate = () => {
 ## Contact me through my social accounts
 
 * Email: mohamed.k.elhawary@gmail.com
-* [LinkedIn](https://www.linkedin.com/in/mohamed-elhawary14/)
+* [Linkedin](https://www.linkedin.com/in/mohamed-elhawary14/)
 * [Github](https://github.com/Mohamed-Elhawary)  
 * [Behance](https://www.behance.net/mohamed-elhawary14)
 * [Codepen](https://codepen.io/Mohamed-ElHawary) 
